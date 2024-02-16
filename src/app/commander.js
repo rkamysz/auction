@@ -41,8 +41,7 @@ class Commander extends EventEmitter {
 
   async handleClose() {
     const auctionId = await this.questionAsync('Enter auction ID: ');
-    const finalPrice = await this.questionAsync('Enter final price: ');
-    this.emit('close', { auctionId, finalPrice });
+    this.emit('close', { auctionId });
   }
 
   questionAsync(prompt) {
