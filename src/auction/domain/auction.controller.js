@@ -13,7 +13,7 @@ class AuctionController {
     return this.openAuctionUseCase.execute(data);
   }
 
-  async updateAuction(data) {
+  async bidOnAuction(data) {
     return this.bidOnAuctionUseCase.execute(data);
   }
 

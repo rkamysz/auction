@@ -1,16 +1,15 @@
-const readline = require('readline');
 const RPC = require('@hyperswarm/rpc');
 const DHT = require('hyperdht');
 const Hypercore = require('hypercore');
 const Hyperbee = require('hyperbee');
 const crypto = require('crypto');
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+const Commander = require('./app/commander');
+const { createAuctionClient } = require('./app/auction-client');
+const { createAuctionServer } = require('./app/auction-server');
 
 const main = async () => {
+  const commander = new Commander();
   const hcore = new Hypercore('./db/auction-client');
   const hbee = new Hyperbee(hcore, { keyEncoding: 'utf-8', valueEncoding: 'binary' });
   await hbee.ready();
@@ -28,35 +27,24 @@ const main = async () => {
   });
   await dht.ready();
 
+  const publicKey = Buffer.from(keyPair.publicKey).toString('hex');
   const rpc = new RPC({ dht });
+  await createAuctionServer(rpc, publicKey);
+  const client = await createAuctionClient(rpc, publicKey);
 
-  const server = rpc.createServer();
-  await server.listen();
+  commander.on('open', async ({ item, price }) => {
+    await client.request('openAuction', { item, price });
+  });
 
-  //
+  commander.on('bid', async ({ auctionId, price }) => {
+    await client.request('bidOnAuction', { auctionId, price });
+  });
 
-  const handleCommand = async (command) => {
-    if (command === 'open') {
-      //
-    } else if (command === 'bid') {
-      //
-    } else if (command === 'close') {
-      //
-    } else {
-      console.log('Unknown command');
-      handleCommand(await askForCommand());
-    }
-  };
+  commander.on('close', async ({ auctionId, finalPrice }) => {
+    await client.request('closeAuction', { auctionId, finalPrice });
+  });
 
-  const askForCommand = async () => {
-    return new Promise((resolve) => {
-      rl.question('Enter command (open, bid, close): ', (command) => {
-        resolve(command);
-      });
-    });
-  };
-
-  handleCommand(await askForCommand());
+  commander.start().catch(console.error);
 };
 
 main().catch(console.error);

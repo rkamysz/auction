@@ -1,10 +1,10 @@
 class AuctionRepository {
   static TOKEN = Symbol('AuctionRepository');
-  async create(auction) {}
-  async findById(id) {}
+  async open(data) {}
+  async update(data) {}
+  async close(data) {}
   async findAll() {}
-  async update(auction) {}
-  async delete(id) {}
+  async find(data) {}
 }
 
 module.exports = AuctionRepository;
