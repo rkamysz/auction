@@ -41,9 +41,9 @@ const createAuctionServer = async (rpc, publicKey, container) => {
     if (result.error) {
       cb(result.error);
     } else {
-      console.log(`Auction closed for ${auctionId}, winner: ${userId}`);
-      server.broadcast('notifyAuctionClosed', { auctionId, userId });
-      cb(null, 'Auction closed successfully');
+      console.log(`Auction ended for ${auctionId}, winner: ${userId}`);
+      server.broadcast('notifyAuctionended', { auctionId, userId });
+      cb(null, 'Auction ended successfully');
     }
   });
 

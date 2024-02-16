@@ -4,7 +4,7 @@ class Container {
   }
 
   bind(key, cls) {
-    this.instances.set(key, new cls());
+    this.instances.set(key, new cls(this));
   }
 
   bindToValue(key, value) {

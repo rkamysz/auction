@@ -1,8 +1,7 @@
 class Bid {
-  constructor(id, auctionId, userId, amount) {
-    this.id = id;
-    this.auctionId = auctionId;
-    this.userId = userId;
+  constructor(auction, user, amount) {
+    this.auction = auction;
+    this.user = user;
     this.amount = amount;
   }
 }

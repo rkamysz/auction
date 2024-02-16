@@ -3,7 +3,7 @@ const { OpenAuctionUseCase, CloseAuctionUseCase, BidOnAuctionUseCase } = require
 class AuctionController {
   static TOKEN = Symbol('AuctionController');
 
-  constructor() {
+  constructor(container) {
     this.openAuctionUseCase = container.resolve(OpenAuctionUseCase.TOKEN);
     this.closeAuctionUseCase = container.resolve(CloseAuctionUseCase.TOKEN);
     this.bidOnAuctionUseCase = container.resolve(BidOnAuctionUseCase.TOKEN);
