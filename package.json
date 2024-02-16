@@ -1,0 +1,28 @@
+{
+  "name": "auction",
+  "version": "0.0.1",
+  "description": "P2P auction solution based on Hyperswarm RPC and Hypercores.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkamysz/auction.git"
+  },
+  "author": "Radoslaw Kamysz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rkamysz/auction/issues"
+  },
+  "homepage": "https://github.com/rkamysz/auction#readme",
+  "dependencies": {
+    "@hyperswarm/rpc": "^3.3.2",
+    "crypto": "^1.0.1",
+    "hyperbee": "^2.18.2",
+    "hypercore": "^10.33.0",
+    "hyperdht": "^6.11.6",
+    "inversify": "^6.0.2",
+    "readline": "^1.3.0"
+  }
+}
